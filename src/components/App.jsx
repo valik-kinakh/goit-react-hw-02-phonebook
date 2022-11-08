@@ -11,11 +11,22 @@ export const App = () => {
     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    { id: 'id-5', name: 'test', number: '227-91-26' },
   ]);
   const [searchQuery, setSearchQuery] = useState('');
 
   const addContact = contact => {
+    const duplicate = contacts.find(el => el.name === contact.name);
+    if (duplicate) {
+      alert(`${duplicate.name} is already in contacts`);
+      return;
+    }
+
     setContacts(prevState => [...prevState, contact]);
+  };
+
+  const deleteContact = id => {
+    setContacts(prevState => prevState.filter(contact => contact.id !== id));
   };
 
   return (
@@ -25,7 +36,11 @@ export const App = () => {
 
       <SubTitle title="Contacts" />
       <Filter setSearchQuery={setSearchQuery} value={searchQuery} />
-      <ContactList contacts={contacts} searchQuery={searchQuery} />
+      <ContactList
+        contacts={contacts}
+        searchQuery={searchQuery}
+        deleteContact={deleteContact}
+      />
     </div>
   );
 };
