@@ -2,6 +2,7 @@ import Title from './common/Title';
 import SubTitle from './common/SubTitle';
 import ContactForm from './ContactForm';
 import { useEffect, useState } from 'react';
+import ContactList from './ContactList';
 
 export const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -20,6 +21,7 @@ export const App = () => {
       <ContactForm addContact={addContact} />
 
       <SubTitle title="Contacts" />
+      <ContactList contacts={contacts} />
     </div>
   );
 };
