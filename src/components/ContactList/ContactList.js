@@ -2,10 +2,15 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import s from './ContactList.module.css';
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, searchQuery }) => {
+  const filterCallback = contact => {
+    const searchQueryToLowercase = searchQuery.toLowerCase();
+    return contact.name.toLowerCase().includes(searchQueryToLowercase);
+  };
+
   return (
     <ul className={s.list}>
-      {contacts.map(contact => (
+      {contacts.filter(filterCallback).map(contact => (
         <li className={s.item} key={contact.id}>
           {contact.name}: {contact.number}
         </li>
@@ -22,6 +27,7 @@ ContactList.propTypes = {
       number: Proptypes.string,
     })
   ).isRequired,
+  searchQuery: Proptypes.string,
 };
 
 export default ContactList;
